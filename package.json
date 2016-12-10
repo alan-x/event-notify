@@ -1,0 +1,29 @@
+{
+  "name": "event-notify",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/followWinter/event-notify.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/followWinter/event-notify/issues"
+  },
+  "homepage": "https://github.com/followWinter/event-notify#readme",
+  "devDependencies": {
+    "babel-jest": "^17.0.2",
+    "babel-polyfill": "^6.20.0",
+    "babel-preset-es2015": "^6.18.0",
+    "jest-cli": "^17.0.3"
+  },
+  "jest": {
+    "testEnvironment": "node"
+  }
+}
