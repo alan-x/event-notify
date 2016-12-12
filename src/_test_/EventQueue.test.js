@@ -1,4 +1,4 @@
-import EventQueue from '../src/EventQueue'
+import EventQueue from '../src/lib/EventQueue'
 it('EventQueue pubish|subscribe|run', () => {
     EventQueue.publish("111")
     let eventHandler= EventQueue.subscribe("111", function () {

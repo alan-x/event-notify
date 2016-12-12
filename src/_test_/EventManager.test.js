@@ -1,4 +1,4 @@
-import EventManager from '../src/EventManager'
+import EventManager from '../src/lib/EventManager'
 
 it('event add|get|remove', () => {
     let em = new EventManager()
