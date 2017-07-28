@@ -63,6 +63,7 @@ class EventManager {
      * 功能简介 : 运行事件回调
      * 注意事项 : 无
      * 接受参数 : @param eventHandle      事件句柄
+     *          @param data     事件发生携带的参数
      * 返回参数 : @returns null
      * 流程说明 : 1. 获取该事件句柄下的事件
      *              - 根据`eventHandle`从`eventMap`中找出该事件函数
