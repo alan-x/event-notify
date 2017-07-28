@@ -12,6 +12,7 @@ class EventQueue {
      * 接受参数 : @param eventName 事件昵称
      * 返回结果 : @returns null
      * 流程说明 : 1. 将事件添加到事件句柄队列
+     *
      *              - 调用`eventHandlerManager.addEvent`将事件添加到句柄队列
      * 调用示例 :
      *      ```
