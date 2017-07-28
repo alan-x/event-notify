@@ -1,16 +1,14 @@
-import EventQueue from '../src/lib/EventQueue'
+import EventQueue from './../../src/lib/EventQueue'
 it('EventQueue pubish|subscribe|run', () => {
-    EventQueue.publish("111")
-    let eventHandler= EventQueue.subscribe("111", function () {
-        console.log("111:1 run")
+    let event=new EventQueue();
+    event.subscribe("111", function (data) {
+        console.log("111:1 run",data)
     })
-    EventQueue.subscribe("111", function () {
-        console.log("111:2 run")
+    event.subscribe("111", function (data) {
+        console.log("111:2 run",data)
     })
-    EventQueue.run('111')
-    EventQueue.cancel('111',eventHandler)
-    console.log(EventQueue.eventHandleManager.getEventHandleMap())
-    EventQueue.run('111')
+    event.run('111',{id:1})
+    event.run('111',{id:2})
 
 });
 

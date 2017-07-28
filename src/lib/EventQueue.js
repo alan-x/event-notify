@@ -29,6 +29,7 @@ class EventQueue {
      *           并将该事件句柄添加到事件句柄队列中,等待调用
      * 注意事项 : 该事件和`publish`|`run`方法没有调用冲突和先后顺序问题
      * 接受参数 : @param eventName       要调用的事件名称
+     *           @param eventName
      *           @param event           事件发生时的回调事件
      * 返回参数 : @returns eventHandle   事件在事件队列中的事件句柄,可以用来取消订阅
      * 流程说明 : 1. 将事件添加到事件句柄队列
@@ -40,7 +41,6 @@ class EventQueue {
      */
     subscribe(eventName, event) {
         return this.eventHandleManager.addEvent(eventName, event)
-
     }
 
     /**
@@ -56,8 +56,8 @@ class EventQueue {
      *      run('EVENT1')
      *      ```
      */
-    run(eventName) {
-        this.eventHandleManager.run(eventName)
+    run(eventName, data) {
+        this.eventHandleManager.run(eventName, data)
         return null
     }
 
@@ -66,6 +66,7 @@ class EventQueue {
      * 注意事项 : 该事件和`subscribe`|`publish`方法没有调用冲突和先后顺序问题
      *           也就是调用订阅者订阅时的回调事件
      * 接受参数 : @param eventName       要调用的事件名称
+     *           @param eventName
      *           @param eventHandle     事件发生时的回调事件句柄,如果该参数不传,将取消该事件下的所有订阅者
      * 返回参数 : @returns null
      * 流程说明 : 1. 将该事件从事件句柄队列中移除
@@ -75,7 +76,7 @@ class EventQueue {
      *      cancel('EVENT1','7634b1d2-711d-4ac2-81e9-0586823e0eab')
      *      ```
      */
-    cancel(eventName, eventHandle=-1) {
+    cancel(eventName, eventHandle = -1) {
         this.eventHandleManager.removeEvent(eventName, eventHandle)
         return null
     }

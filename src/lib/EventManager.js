@@ -35,7 +35,7 @@ class EventManager {
      *      ```
      */
     addEvent(event) {
-        let uuid = this.createUuid()
+        let uuid = EventManager.createUuid()
         this.eventMap.set(uuid, event)
         return uuid
     }
@@ -75,10 +75,10 @@ class EventManager {
      *      ```
      * TODO : 将事件直接从事件句柄队列移除的时候要讲事件函数从事件函数队列中移除,保持事件函数队列的干净,还没做
      */
-    run(eventHandle) {
+    run(eventHandle, data) {
         let event = this.eventMap.get(eventHandle)
         console.log(eventHandle, event)
-        event()
+        event(data)
         return null
     }
     /**
@@ -93,7 +93,7 @@ class EventManager {
      *      createUuid()
      *      ```
      */
-    createUuid() {
+    static createUuid() {
         var s = [];
         var hexDigits = "0123456789abcdef";
         for (var i = 0; i < 36; i++) {

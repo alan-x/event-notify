@@ -1,5 +1,5 @@
 // import EventHandleManager from 'EventHandleManager'
-import EventHandleManager from '../src/lib/EventHandleManager'
+import EventHandleManager from './../../src/lib/EventHandleManager'
 
 it('event handle add|get|remove', () => {
 

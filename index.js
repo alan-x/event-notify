@@ -1,5 +1,72 @@
 'use strict';
 
+var _EventHandleManager = require('./../../src/lib/EventHandleManager');
+
+var _EventHandleManager2 = _interopRequireDefault(_EventHandleManager);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+it('event handle add|get|remove', function () {
+
+    var ehm = new _EventHandleManager2.default();
+    ehm.addEvent("1", function () {
+        console.log('1:1');
+    });
+    ehm.addEvent("1", function () {
+        console.log("1:2");
+    });
+    ehm.addEvent("2", "1");
+    ehm.addEvent("2", "2");
+    console.log(ehm.getEventHandleMap());
+
+    ehm.removeEvent('2', '1');
+    console.log(ehm.getEventHandleMap());
+
+    ehm.removeEvent('2');
+    console.log(ehm.getEventHandleMap());
+
+    ehm.run('1');
+}); // import EventHandleManager from 'EventHandleManager'
+'use strict';
+
+var _EventManager = require('./../../src/lib/EventManager');
+
+var _EventManager2 = _interopRequireDefault(_EventManager);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+it('event add|get|remove', function () {
+    var em = new _EventManager2.default();
+    var uuid = em.addEvent('1');
+    // em.addEvent('1')
+    // em.addEvent('1')
+    // em.addEvent('1')
+
+    console.log(em.getEventMap());
+    em.removeEvent(uuid);
+    console.log(em.getEventMap());
+});
+'use strict';
+
+var _EventQueue = require('./../../src/lib/EventQueue');
+
+var _EventQueue2 = _interopRequireDefault(_EventQueue);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+it('EventQueue pubish|subscribe|run', function () {
+    var event = new _EventQueue2.default();
+    event.subscribe("111", function (data) {
+        console.log("111:1 run", data);
+    });
+    event.subscribe("111", function (data) {
+        console.log("111:2 run", data);
+    });
+    event.run('111', { id: 1 });
+    event.run('111', { id: 2 });
+});
+'use strict';
+
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
@@ -161,11 +228,11 @@ var EventHandleManager = function () {
 
     }, {
         key: "run",
-        value: function run(eventName) {
+        value: function run(eventName, data) {
             var events = this.getEventHandleMap(eventName);
             console.log("events", events);
             for (var i = 0; i < events.length; i++) {
-                this.eventManager.run(events[i]);
+                this.eventManager.run(events[i], data);
             }
             return null;
         }
@@ -231,7 +298,7 @@ var EventManager = function () {
     }, {
         key: "addEvent",
         value: function addEvent(event) {
-            var uuid = this.createUuid();
+            var uuid = EventManager.createUuid();
             this.eventMap.set(uuid, event);
             return uuid;
         }
@@ -277,10 +344,10 @@ var EventManager = function () {
 
     }, {
         key: "run",
-        value: function run(eventHandle) {
+        value: function run(eventHandle, data) {
             var event = this.eventMap.get(eventHandle);
             console.log(eventHandle, event);
-            event();
+            event(data);
             return null;
         }
         /**
@@ -296,7 +363,7 @@ var EventManager = function () {
          *      ```
          */
 
-    }, {
+    }], [{
         key: "createUuid",
         value: function createUuid() {
             var s = [];
@@ -369,6 +436,7 @@ var EventQueue = function () {
          *           并将该事件句柄添加到事件句柄队列中,等待调用
          * 注意事项 : 该事件和`publish`|`run`方法没有调用冲突和先后顺序问题
          * 接受参数 : @param eventName       要调用的事件名称
+         *           @param eventName
          *           @param event           事件发生时的回调事件
          * 返回参数 : @returns eventHandle   事件在事件队列中的事件句柄,可以用来取消订阅
          * 流程说明 : 1. 将事件添加到事件句柄队列
@@ -401,8 +469,8 @@ var EventQueue = function () {
 
     }, {
         key: 'run',
-        value: function run(eventName) {
-            this.eventHandleManager.run(eventName);
+        value: function run(eventName, data) {
+            this.eventHandleManager.run(eventName, data);
             return null;
         }
 
@@ -411,6 +479,7 @@ var EventQueue = function () {
          * 注意事项 : 该事件和`subscribe`|`publish`方法没有调用冲突和先后顺序问题
          *           也就是调用订阅者订阅时的回调事件
          * 接受参数 : @param eventName       要调用的事件名称
+         *           @param eventName
          *           @param eventHandle     事件发生时的回调事件句柄,如果该参数不传,将取消该事件下的所有订阅者
          * 返回参数 : @returns null
          * 流程说明 : 1. 将该事件从事件句柄队列中移除

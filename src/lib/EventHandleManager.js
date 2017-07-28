@@ -115,11 +115,11 @@ class EventHandleManager {
      *      ```
      * TODO : 将事件直接从事件句柄队列移除的时候要讲事件函数从事件函数队列中移除,保持事件函数队列的干净,还没做
      */
-    run(eventName) {
+    run(eventName, data) {
         let events = this.getEventHandleMap(eventName)
         console.log("events", events)
         for (let i = 0; i < events.length; i++) {
-            this.eventManager.run(events[i])
+            this.eventManager.run(events[i], data)
         }
         return null
     }
