@@ -55,7 +55,6 @@ class EventManager {
      */
     removeEvent(eventHandle) {
         this.eventMap.delete(eventHandle)
-        console.log("eventMap" + this.eventMap)
         return null
     }
 
@@ -78,7 +77,6 @@ class EventManager {
      */
     run(eventHandle, data) {
         let event = this.eventMap.get(eventHandle)
-        console.log(eventHandle, event)
         event(data)
         return null
     }

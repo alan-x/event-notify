@@ -1,12 +1,12 @@
 {
   "name": "husky-event-notify",
-  "version": "0.1.10",
+  "version": "0.1.13",
   "description": "",
   "main": "dist/index.min.js",
   "scripts": {
     "test": "jest",
-    "build": "babel src -o index.js",
-    "pub": "gulp &&npm publish --access=public "
+    "build": "babel src --out-dir dist -i /test/",
+    "pub": "gulp clean && npm run build  && gulp &&npm publish --access=public "
   },
   "repository": {
     "type": "git",

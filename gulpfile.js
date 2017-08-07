@@ -18,7 +18,7 @@ gulp.task('clean', function (cb) {
 });
 
 gulp.task('minifyjs', function () {
-    return gulp.src('index.js')
+    return gulp.src('dist/index.js')
         .pipe(uglify())    //压缩
         .pipe(rename({suffix: '.min'}))   //rename压缩后的文件名
         .pipe(gulp.dest('dist/'));  //输出

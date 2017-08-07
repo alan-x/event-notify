@@ -117,7 +117,6 @@ class EventHandleManager {
      */
     run(eventName, data) {
         let events = this.getEventHandleMap(eventName)
-        console.log("events", events)
         for (let i = 0; i < events.length; i++) {
             this.eventManager.run(events[i], data)
         }
